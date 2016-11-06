@@ -5,6 +5,15 @@ public class Player {
 	private String name;
 	private int PlayerNumber;
 	private boolean active;
+	private int myTime;
+
+	public int getMyTime() {
+		return myTime;
+	}
+
+	public void setMyTime(int myTime) {
+		this.myTime = myTime;
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -47,6 +56,7 @@ public class Player {
 	public void losse() {
 		active = false;
 		disscard.add(hand.get(0));
+		System.out.println(hand.get(0));
 		hand.remove(0);
 
 	}

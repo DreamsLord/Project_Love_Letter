@@ -6,6 +6,6 @@ public class HandmaidCard extends Card {
 	}
 
 	public static void play() {
-
+System.out.println("You are shadow in the palace, you are protected");
 	}
 }

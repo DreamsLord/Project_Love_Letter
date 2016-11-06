@@ -5,8 +5,10 @@ public class CountessCard extends Card {
 		super("Countess", 7);
 
 	}
-	public static void play(){
-		
+
+	public static void play() {
+		System.out.print("I do nothing...");
+
 	}
 
 }
