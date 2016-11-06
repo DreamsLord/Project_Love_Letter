@@ -8,16 +8,21 @@ public class PriestCard extends Card {
 		super("Priest", 2);
 
 	}
+	static void play(){
+		Board.CheckPlayer(false);
+		priestPlay();
+	}
 
-	static void play() {
-		int userInput;
+	static void priestPlay() {
+		int userInput=Board.getInputPlayer();
+		
 
-		System.out.println("Change Player who show you his card");
-		userInput = in.nextInt();
+		
+		userInput = Board.getInputPlayer();
 
-		Player inputPlayer = Main.daoPlayers.players.get(userInput - 1);
+		Player inputPlayer = Main.daoPlayers.players.get(userInput );
 		System.out.println(inputPlayer.getPlayerNumber());
-		System.out.println(Main.daoPlayers.players.get(userInput - 1).showCard());
+		System.out.println(Main.daoPlayers.players.get(userInput ).showCard());
 
 	}
 }

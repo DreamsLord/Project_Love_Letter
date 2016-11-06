@@ -8,6 +8,18 @@ public class PrincessCard extends Card {
 
 	public static void play() {
 
-	}
+		int iAmThisNumber = 0;
+		for (int x = 0; x < 4; x++) {
+			int a = Main.daoPlayers.players.get(x).getMyTime();
 
+			if (a == 1) {
+				iAmThisNumber = x;
+				break;
+
+			}
+			Main.daoPlayers.players.get(iAmThisNumber).losse();
+
+		}
+
+	}
 }

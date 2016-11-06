@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 class Main {
@@ -9,29 +10,37 @@ class Main {
 		CardStack cardStack = new CardStack();
 		cardStack.shuffle();
 		addPlayer();
-		playerTurn();
+		do {
+
+			playerTurn();
+		} while (!(CardStack.getSize() <= 1 || Board.getActivGame() < 2));
+		endGame();
 
 	}
 
-	public static void addPlayer() {
+	private static void addPlayer() {
 
-		Player player1 = new Player();  
+		Player player1 = new Player();
 		Player player2 = new Player();
 		Player player3 = new Player();
 		Player player4 = new Player();
-		
+
 		player1.setPlayerNumber(1);
 		player2.setPlayerNumber(2);
 		player3.setPlayerNumber(3);
 		player4.setPlayerNumber(4);
-		
+
+		player1.setMyTime(0);
+		player2.setMyTime(0);
+		player3.setMyTime(0);
+		player4.setMyTime(0);
 
 		player1.setActive(false);
 		player2.setActive(false);
 		player3.setActive(false);
 		player4.setActive(false);
 		int numberOfPlayers;
-		
+
 		do {
 			System.out.println("How many players will play");
 			numberOfPlayers = in.nextInt();
@@ -78,62 +87,100 @@ class Main {
 		daoPlayers.addPlayer(player4);
 	}
 
-	public static void playerTurn() {
-		
+	private static void playerTurn() {
+
+		Board.setActivGame(4);
+
 		for (int i = 0; i < 4; i++) {
-			System.out.println( "----");
+
+			if (Board.getActivGame() < 2) {
+				System.out.println("You are alone in the castle");
+				break;
+
+			}
+			System.out.println("----");
+			System.out.println("Card on CardStack are" + CardStack.getSize());
+			if (CardStack.getSize() <= 1 || Board.getActivGame() < 2) {
+				break;
+			}
 			Player nowPlayer = daoPlayers.getPlayer().get(i);
 			if (nowPlayer.getActiv() == false) {
-				System.out.print("Player "+ nowPlayer.getPlayerNumber()+" is not in Game");
+				int a = Board.getActivGame() - 1;
+				Board.setActivGame(a);
+
+				System.out.print("Player " + nowPlayer.getPlayerNumber() + " is not in Game");
 
 			} else {
-				nowPlayer.getCard();                    // DOBIERANIE KARTY
-				int userInput;
+				nowPlayer.setMyTime(1);
+				nowPlayer.getCard(); // DOBIERANIE KARTY
+				int loadUserInput;
+				Card inputCard;
+
 				do {
-					System.out.println( "Player" + nowPlayer.getPlayerNumber());
-					System.out.println("Twoje karty");
-					System.out.println(nowPlayer.showCard());                    //POKAZYWANIE KART
+					do {
+						System.out.println("Player" + nowPlayer.getPlayerNumber());
+						System.out.println("Twoje karty");
+						System.out.println(nowPlayer.showCard()); // POKAZYWANIE
+																	// KART
 
-					System.out.println("Wybierz karte (1 lub 2)");
+						System.out.println("Wybierz karte (1 lub 2)");
 
-					userInput = in.nextInt() - 1;
-					Card inputCard = nowPlayer.hand.get(userInput);
+						Board.checkCountess();
+						loadUserInput = in.nextInt();
+					} while (loadUserInput > 2 || loadUserInput < 1);
+					int userInput = loadUserInput - 1;
+					inputCard = nowPlayer.hand.get(userInput);
 					System.out.println(inputCard);
 					nowPlayer.disscard.add(inputCard);
-					nowPlayer.hand.remove(inputCard);
 
-					switch (inputCard.getNumber()) {                          // ZAGRYWANIE KARTY
-					case 1:
-						GuardCard.play();
-						break;
-					case 2:
-						PriestCard.play();
-						break;
-					case 3:
-						BaronCard.play();
-						 break;
-					case 4:
-						HandmaidCard.play();
-						break;
-					case 5:
-						PrinceCard.play();
-						break;
-					case 6:
-						KingCard.play();
-						break;
-					case 7:
-						CountessCard.play();
-						break;
-					case 8:
-						PrincessCard.play();
-						break;
-					default:
-						System.out.println("You should choice number on your hand(first 1 or second 2");
-					}
-				} while (userInput > 2 || userInput < -1);
+				} while (Board.getiHaveCountess() == 1 && (inputCard.getNumber() == 5 || inputCard.getNumber() == 6));
+
+				switch (inputCard.getNumber()) { // ZAGRYWANIE KARTY
+				case 1:
+					GuardCard.play();
+					break;
+				case 2:
+					PriestCard.play();
+					break;
+				case 3:
+					BaronCard.play();
+					break;
+				case 4:
+					HandmaidCard.play();
+					break;
+				case 5:
+					PrinceCard.play();
+					break;
+				case 6:
+					KingCard.play();
+					break;
+				case 7:
+					CountessCard.play();
+					break;
+				case 8:
+					PrincessCard.play();
+					break;
+				default:
+					System.out.println("You should choice number on your hand(first 1 or second 2");
+				}
+				nowPlayer.hand.remove(inputCard);
+				nowPlayer.setMyTime(0);
 
 			}
 
 		}
+	}
+
+	private static void endGame() {
+		System.out.println("End Game");
+		System.out.println("End Game");
+		System.out.println(" -<>-");
+
+		//for (int x = 0; x < winPlayers.size(); x++) {
+		//	System.out.print(winPlayers.get(x).getPlayerNumber());
+		//	System.out.println(winPlayers.get(x).getCard());
+
+		//}
+
 	}
 }

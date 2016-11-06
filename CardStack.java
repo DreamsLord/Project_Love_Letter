@@ -20,6 +20,8 @@ public class CardStack {
 		stack.push(new KingCard());
 		stack.push(new CountessCard());
 		stack.push(new PrinceCard());
+		stack.push(new HandmaidCard());
+		stack.push(new HandmaidCard());
 
 	}
 
@@ -35,4 +37,9 @@ public class CardStack {
 	public String toString() {
 		return stack.toString();
 	}
+
+	public static int getSize() {
+		return stack.size();
+	}
+
 }
