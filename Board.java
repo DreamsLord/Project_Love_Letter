@@ -4,6 +4,15 @@ public class Board {
 	private static int iHaveCountess = 0;
 	private static int activGame = 4;
 	private static int inputPlayer = 0;
+	private static int noCanPlay=0;
+
+	public static int getNoCanPlay() {
+		return noCanPlay;
+	}
+
+	public static void setNoCanPlay(int noCanPlay) {
+		Board.noCanPlay = noCanPlay;
+	}
 
 	public static int getInputPlayer() {
 		return inputPlayer;
@@ -30,13 +39,14 @@ public class Board {
 	}
 
 	public static void CheckPlayer(boolean onHimSelf) {
+		Board.setInputPlayer(0);
+		Board.setNoCanPlay(0);
 
 		boolean activeInputPlayer;
 		String loadInputPlayer;
-		int inputPlayer = 0;
 		int good;
-
 		int allPlayerhaveHandMaidChack = 0;
+		
 		for (int x = 0; x < 4; x++) {
 			int b = 0;
 			if (Main.daoPlayers.players.get(x).getActiv() == true) {
@@ -115,6 +125,7 @@ public class Board {
 			Board.setInputPlayer(inputPlayer);
 		} else {
 			System.out.println("Everyboady have Handmaid, and you can't play on yourself... sorry");
+			Board.setNoCanPlay(1);
 
 		}
 

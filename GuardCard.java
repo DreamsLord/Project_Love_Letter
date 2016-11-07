@@ -10,15 +10,16 @@ public class GuardCard extends Card {
 	public static void play() {
 
 		Board.CheckPlayer(false);
-		guardPlay();
+		if (Board.getNoCanPlay() == 0) {
+			guardPlay();
+		}
 	}
-	
-public static void guardPlay() {
+
+	public static void guardPlay() {
 		System.out.println("/n  wchice number of card has this player");
 		int inputCard = 0;
-		
-		
-		int inputPlayer=Board.getInputPlayer();
+
+		int inputPlayer = Board.getInputPlayer();
 		do {
 
 			String loadInputCard = Main.in.next();
@@ -40,14 +41,12 @@ public static void guardPlay() {
 		playerCard = Main.daoPlayers.players.get(inputPlayer).hand.get(0).getNumber();
 		System.out.println("jego reka" + playerCard);
 		System.out.println("wybrany numer przez Ciebie" + inputCard);
-		
+
 		if (playerCard == inputCard) {
 			Main.daoPlayers.players.get(inputPlayer).losse();
 			System.out.println("You are right!");
 		} else {
 			System.out.println("You are wrong");
+		}
 	}
 }
-}
-
-
