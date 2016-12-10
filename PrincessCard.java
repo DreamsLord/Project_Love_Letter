@@ -17,6 +17,7 @@ public class PrincessCard extends Card {
 				break;
 
 			}
+			System.out.print("Princess burn your letter...");
 			Main.daoPlayers.players.get(iAmThisNumber).losse();
 
 		}

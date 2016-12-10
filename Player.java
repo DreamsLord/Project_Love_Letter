@@ -6,6 +6,15 @@ public class Player {
 	private int PlayerNumber;
 	private boolean active;
 	private int myTime;
+	private int score;
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
 
 	public int getMyTime() {
 		return myTime;
@@ -56,6 +65,7 @@ public class Player {
 	public void losse() {
 		active = false;
 		disscard.add(hand.get(0));
+		System.out.println("This player loose, his hand: ");
 		System.out.println(hand.get(0));
 		hand.remove(0);
 

@@ -7,7 +7,10 @@ public class BaronCard extends Card {
 
 	public static void play() {
 		Board.CheckPlayer(false);
-		playBaron();
+		if (Board.getNoCanPlay() == 0) {
+			playBaron();
+		}
+
 	}
 
 	private static void playBaron() {
@@ -17,7 +20,7 @@ public class BaronCard extends Card {
 			int a = Main.daoPlayers.players.get(x).getMyTime();
 
 			if (a == 1) {
-				iAmThisNumber = x ;
+				iAmThisNumber = x;
 				break;
 			}
 
@@ -36,7 +39,7 @@ public class BaronCard extends Card {
 			System.out.println("You are this same...");
 
 		} else {
-			
+
 			Main.daoPlayers.players.get(iAmThisNumber).losse();
 			System.out.print("You are less importer than this great person...,");
 

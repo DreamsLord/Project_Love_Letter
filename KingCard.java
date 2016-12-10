@@ -8,7 +8,9 @@ public class KingCard extends Card {
 
 	public static void play() {
 		Board.CheckPlayer(false);
-		playKing();
+		if (Board.getNoCanPlay() == 0) {
+			playKing();
+		}
 	}
 
 	private static void playKing() {
